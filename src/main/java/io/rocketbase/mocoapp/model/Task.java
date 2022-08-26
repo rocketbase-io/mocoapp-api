@@ -14,7 +14,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task implements Serializable {
 
-    private int id;
+    private Long id;
     private String name;
     private boolean billable;
     private boolean active;

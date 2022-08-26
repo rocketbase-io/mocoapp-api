@@ -1,5 +1,6 @@
 package io.rocketbase.mocoapp;
 
+import io.rocketbase.mocoapp.chain.ActivityChain;
 import io.rocketbase.mocoapp.chain.ProjectChain;
 
 public class MocoappApi {
@@ -12,6 +13,10 @@ public class MocoappApi {
 
     public ProjectChain project() {
         return new ProjectChain(context);
+    }
+
+    public ActivityChain activity() {
+        return new ActivityChain(context);
     }
 
 }

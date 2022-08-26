@@ -17,7 +17,7 @@ import java.util.Map;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Contact implements Serializable {
-    private long id;
+    private Long id;
     private String gender;
     private String firstname;
     private String lastname;
@@ -54,10 +54,12 @@ public class Contact implements Serializable {
     private ArrayList<String> tags;
     private Company company;
 
+    @JsonProperty("created_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    public Instant created_at;
+    private Instant createdAt;
 
+    @JsonProperty("updated_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    public Instant updated_at;
+    private Instant updatedAt;
 
 }

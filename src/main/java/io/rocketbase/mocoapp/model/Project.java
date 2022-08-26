@@ -19,7 +19,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Project implements Serializable {
 
-    private long id;
+    private Long id;
     private String identifier;
     private String name;
 
@@ -30,11 +30,13 @@ public class Project implements Serializable {
     private boolean fixedPrice;
     private boolean retainer;
 
+    @JsonProperty("start_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate start_date;
+    private LocalDate startDate;
 
+    @JsonProperty("finish_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate finish_date;
+    private LocalDate finishDate;
 
     private String currency;
 
@@ -79,10 +81,12 @@ public class Project implements Serializable {
     private Contact coLeader;
     private Contact customer;
     private List<Task> tasks;
-    
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private Instant created_at;
 
+    @JsonProperty("created_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private Instant updated_at;
+    private Instant createdAt;
+
+    @JsonProperty("updated_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private Instant updatedAt;
 }

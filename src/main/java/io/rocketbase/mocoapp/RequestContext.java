@@ -46,15 +46,15 @@ public class RequestContext {
                 .path("/api/v1");
     }
 
-    public synchronized <E> E execute(RestUriBuilder uriBuilder, HttpMethod method, ParameterizedTypeReference<E> entityClass) {
+    public synchronized <E, R> R execute(RestUriBuilder uriBuilder, HttpMethod method, ParameterizedTypeReference<R> entityClass) {
         return execute(uriBuilder, method, null, entityClass);
     }
 
-    public synchronized <E> E execute(RestUriBuilder uriBuilder, HttpMethod method, E body, ParameterizedTypeReference<E> entityClass) {
+    public synchronized <E, R> R execute(RestUriBuilder uriBuilder, HttpMethod method, E body, ParameterizedTypeReference<R> entityClass) {
         return executeWithResponse(uriBuilder, method, body, entityClass).getBody();
     }
 
-    protected synchronized <E> ResponseEntity<E> executeWithResponse(RestUriBuilder uriBuilder, HttpMethod method, E body, ParameterizedTypeReference<E> entityClass) {
+    protected synchronized <E, R> ResponseEntity<R> executeWithResponse(RestUriBuilder uriBuilder, HttpMethod method, E body, ParameterizedTypeReference<R> entityClass) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         headers.add("Authorization", "Token token=" + (apiBuilder.getThrottleProvider() != null ? apiBuilder.getApiTokenProvider().getApiToken() : apiBuilder.getApiToken()));
@@ -62,7 +62,7 @@ public class RequestContext {
         checkThrottlePeriod();
 
         HttpEntity<E> httpEntity = new HttpEntity<E>(body, headers);
-        ResponseEntity<E> response = restTemplate.exchange(uriBuilder.build(), method, httpEntity, entityClass);
+        ResponseEntity<R> response = restTemplate.exchange(uriBuilder.build(), method, httpEntity, entityClass);
         lastCall = System.currentTimeMillis();
         if (apiBuilder.throttleProviderPresent()) {
             apiBuilder.getThrottleProvider().apiCalled();

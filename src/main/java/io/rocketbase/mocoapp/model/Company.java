@@ -16,7 +16,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Company implements Serializable {
 
-    private long id;
+    private Long id;
     private String type;
     private String name;
     private String website;
@@ -54,11 +54,13 @@ public class Company implements Serializable {
     private String footer;
     private ArrayList<Project> projects;
 
+    @JsonProperty("created_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    public Instant created_at;
+    private Instant createdAt;
 
+    @JsonProperty("updated_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    public Instant updated_at;
+    private Instant updatedAt;
 
     @JsonProperty("debit_number")
     private int debitNumber;
